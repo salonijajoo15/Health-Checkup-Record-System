@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Checkup</title>
+</head>
+<body>
+    <h1>Edit Checkup</h1>
+    <form method="POST">
+        <label>Patient:</label>
+        <select name="patient_id">
+            {% for p in patients %}
+                <option value="{{ p.patient_id }}" {% if p.patient_id == checkup['patient_id'] %}selected{% endif %}>{{ p.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Doctor:</label>
+        <select name="doctor_id">
+            {% for d in doctors %}
+                <option value="{{ d.doctor_id }}" {% if d.doctor_id == checkup['doctor_id'] %}selected{% endif %}>{{ d.doctor_name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Checkup Type:</label>
+        <select name="checkup_type_id">
+            {% for t in types %}
+                <option value="{{ t.checkup_type_id }}" {% if t.checkup_type_id == checkup['checkup_type_id'] %}selected{% endif %}>{{ t.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Date:</label>
+        <input type="date" name="date" value="{{ checkup['date'] }}"><br><br>
+
+        <label>Doctor Notes:</label><br>
+        <textarea name="doctor_notes" rows="4" cols="50">{{ checkup['doctor_notes'] }}</textarea><br><br>
+
+        <button type="submit">Save Changes</button>
+    </form>
+    <br>
+    <a href="/checkups">Back to Checkups</a>
+</body>
+</html>
