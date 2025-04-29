@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><title>Checkup Report</title></head>
+<body>
+    <h1>Generate Report</h1>
+    <form method="POST">
+        <label>Start Date:
+            <input type="date" name="start_date" value="{{ start_date }}" required>
+        </label><br>
+
+        <label>End Date:
+            <input type="date" name="end_date" value="{{ end_date }}" required>
+        </label><br>
+
+        <label>Checkup Type:
+            <select name="checkup_type_id" required>
+                {% for t in checkup_types %}
+                    <option value="{{ t.checkup_type_id }}"
+                        {% if selected_type_id == t.checkup_type_id %}selected{% endif %}>
+                        {{ t.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label><br>
+
+        <button type="submit">Generate Report</button>
+    </form>
+
+    {% if report %}
+        <h2>Report Results</h2>
+        <p><strong>Total Checkups:</strong> {{ report['count'] }}</p>
+        <p><strong>First Checkup Date:</strong> {{ report['first_checkup'] }}</p>
+        <p><strong>Most Recent Checkup Date:</strong> {{ report['last_checkup'] }}</p>
+
+        {% if average_gap %}
+            <p><strong>Average Time Between Checkups:</strong> {{ average_gap | round(2) }} days</p>
+        {% else %}
+            <p><strong>Average Time Between Checkups:</strong> Not enough data</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
