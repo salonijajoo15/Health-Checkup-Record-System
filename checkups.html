@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkup Records</title>
+</head>
+<body>
+    <h1>Checkup Records</h1>
+    <a href="/checkups/new">Add New Checkup</a>
+    <table border="1">
+        <tr>
+            <th>Date</th><th>Patient</th><th>Doctor</th><th>Type</th><th>Notes</th><th>Actions</th>
+        </tr>
+        {% for c in checkups %}
+        <tr>
+            <td>{{ c.date }}</td>
+            <td>{{ c.patient_name }}</td>
+            <td>{{ c.doctor_name }}</td>
+            <td>{{ c.type_name }}</td>
+            <td>{{ c.doctor_notes }}</td>
+            <td>
+                <a href="/checkups/edit/{{ c.checkup_id }}">Edit</a> |
+                <a href="/checkups/delete/{{ c.checkup_id }}">Delete</a>
+                <a href="/report">View Report</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
